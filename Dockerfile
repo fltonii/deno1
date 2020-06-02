@@ -9,8 +9,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 
+ENV DENO_INSTALL="/root/.deno"
+
+ENV PATH="$DENO_INSTALL/bin:$PATH"
+
 COPY . /app
 
+WORKDIR /app
 
-CMD /root/.deno/bin/deno run --allow-write --allow-read --allow-plugin \
-  --allow-net --allow-env --unstable ./app/server.ts
+CMD deno run --allow-write --allow-read --allow-plugin \
+  --allow-net --allow-env --unstable ./server.ts 
