@@ -17,8 +17,8 @@ class DataBase {
   }
 }
 
-const dbName = Deno.env.get("DB_NAME") || "deno_demo";
-const dbHostUrl = Deno.env.get("DB_HOST_URL") || "mongodb://localhost:27017";
+const dbName = Deno.env.get("DB_NAME");
+const dbHostUrl = Deno.env.get("DB_HOST_URL");
 const db = new DataBase(dbName, dbHostUrl);
 db.connect();
 

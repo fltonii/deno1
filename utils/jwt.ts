@@ -7,24 +7,22 @@ import {
   Payload,
 } from "https://deno.land/x/djwt/create.ts";
 
-export class JWT {
-  public encode(payload: Payload) {
-    const header: Jose = {
-      alg: "HS256",
-      typ: "JWT",
-    };
-    payload.exp = setExpiration(new Date().getTime() + 60000);
-    const key = Deno.env.get("JWT_SECRET")!;
-    return makeJwt({ payload, key, header });
-  }
+export const encodeToken = (payload: Payload) => {
+  const header: Jose = {
+    alg: "HS256",
+    typ: "JWT",
+  };
+  payload.exp = setExpiration(new Date().getTime() + 60000);
+  const key = Deno.env.get("JWT_SECRET")!;
+  return makeJwt({ payload, key, header });
+};
 
-  public decode(token: string) {
-    const encodedPayload = token.split(".")[1];
-    return atob(encodedPayload);
-  }
+export const decodeToken = (token: string) => {
+  const encodedPayload = token.split(".")[1];
+  return atob(encodedPayload);
+};
 
-  public validate(token: string) {
-    const key = Deno.env.get("JWT_SECRET")!;
-    return validateJwt(token, key);
-  }
-}
+export const validateToken = (token: string) => {
+  const key = Deno.env.get("JWT_SECRET")!;
+  return validateJwt(token, key);
+};
