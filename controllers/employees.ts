@@ -3,7 +3,7 @@ import {
   Context,
 } from "https://deno.land/x/abc@v1.0.0-rc2/mod.ts";
 import db from "../config/database.ts";
-import { ErrorHandler } from "../error_middleware.ts";
+import { ErrorHandler } from "../utils/error_middleware.ts";
 
 const database = db.getDatabase();
 const employees = database.collection("employees");
