@@ -39,12 +39,19 @@ export const verifyUser: HandlerFunc = async (ctx: Context) => {
 
     const user = await usersCollection.findOne({ email });
 
+    if (!user) {
+      return ctx.json("User not found", 500);
+    }
+
     if (await compareHash(password as string, user.hash)) {
       const token = encodeToken({
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
       });
+
+      (usersCollection as any).findOneAndUpdate({ email }, { $inc: { token } });
+
       return ctx.json(token, 200);
     } else {
       throw new ErrorHandler("Unauthorized", 401);
