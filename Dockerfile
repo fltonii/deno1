@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
 
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
 
 ENV DENO_INSTALL="/root/.deno"
 
